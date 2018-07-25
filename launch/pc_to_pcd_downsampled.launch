@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!-- 
+POINTCLOUD To PCD LAUNCH FILE FOR UNIPI VISION SETUP (KINECT ONE USING IAI_KINECT2) 
+N:B: kinect2_bridge launch file should be launched separately!
+-->
+
+<launch>
+
+	<!-- LOADING PARAMS -->
+	<param name="x_res" value="20"/>
+	<param name="y_res" value="20"/>
+
+	<!-- Calling the pc_downsampler node -->
+	<node name="pc_to_pcd_node" pkg="point_cloud_utilities" type="point_cloud_utilities_to_pcd" respawn="false" args="input_topic:=/downsampled_points" output="screen">
+	</node> 
+
+</launch>
