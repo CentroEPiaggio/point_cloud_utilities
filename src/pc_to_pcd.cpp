@@ -44,7 +44,7 @@ void convert_and_save_cb(const sensor_msgs::PointCloud2ConstPtr& input_cloud){
     int result_writing = pcl::io::savePCDFileASCII("test_pcd.pcd", *temp_cloud);
 
     // Print message and exit
-	std::cerr << "Saved " << temp_cloud->points.size () << " data points to test_pcd.pcd and the result was " << result_writing << "." << std::endl;
+	std::cout << "Saved " << temp_cloud->points.size () << " data points to test_pcd.pcd and the result was " << result_writing << "." << std::endl;
 
 	std::cout << "Saved point cloud to PCD, shutting down the node!" << std::endl;
 
