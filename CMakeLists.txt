@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(point_cloud_utilities)
 
+add_definitions(-std=c++11)
+set(CMAKE_CXX_STANDARD 11)
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -11,7 +14,12 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_conversions
   pcl_ros
   roscpp
+  std_msgs
   sensor_msgs
+  geometry_msgs
+  tf
+  tf_conversions
+  eigen_conversions
 )
 
 ## System dependencies are found with CMake's conventions
@@ -55,11 +63,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  pcd_transform.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -69,10 +76,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   sensor_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -119,6 +127,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  /usr/include/eigen3
 )
 
 ## Declare a C++ library
@@ -138,6 +147,7 @@ include_directories(
 add_executable(${PROJECT_NAME}_downsampler src/pc_downsampler.cpp)
 add_executable(${PROJECT_NAME}_to_pcd src/pc_to_pcd.cpp)
 add_executable(${PROJECT_NAME}_cropper src/pc_cropper.cpp)
+add_executable(${PROJECT_NAME}_transfrom src/pcd_transform.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -158,6 +168,10 @@ target_link_libraries(${PROJECT_NAME}_to_pcd
 )
 target_link_libraries(${PROJECT_NAME}_cropper
    ${catkin_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_transfrom
+   ${catkin_LIBRARIES}
+   ${ROS_LIBRARIES}
 )
 
 #############

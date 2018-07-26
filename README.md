@@ -80,6 +80,35 @@ Launch the pc_cropper node (this crops the point cloud taken from */kinect2/sd/p
 roslaunch point_cloud_utilities pc_cropper_kinect2.launch
 ```
 
+## Running the PCD transformer
+
+Launch the pcd_transform node (this starts a service called */pcd_transform_service*)).
+
+```
+roscore
+```
+
+```
+rosrun point_cloud_utilities point_cloud_utilities_transfrom
+```
+
+Then call the service on a seperate terminal specifying the path to the .pcd file and the transformation:
+
+```
+rosservice call /pcd_transform_service "pcd_path: './file.pcd'
+transform:
+  position:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0" 
+
+```
+
 ## Other launch files
 
 Other useful launch files are also provided to combine dowsampling, cropping and saving.
