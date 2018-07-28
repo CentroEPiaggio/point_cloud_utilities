@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- 
+Launch file to run RViz with configuration loaded for cropping.
+-->
+
+<launch>
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find point_cloud_utilities)/config/kinect_crop.rviz" />
+</launch>
